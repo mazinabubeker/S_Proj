@@ -1,0 +1,157 @@
+html{
+    padding: 0;
+    margin: 0;
+    
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+p{
+    margin: 0;
+    padding: 0;
+}
+
+#main-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#nav-container{
+    width: 300px;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    /* border-right: 1px solid rgba(0,0,0,.2); */
+    box-shadow: 5px 0px 20px 3px rgba(0,0,0,.2);
+}
+
+
+
+#nav-item-container{
+    width: 100%;
+    height: calc(100% - 100px);
+    /* background-color: yellow; */
+    display: flex;
+    flex-direction: column;
+}
+
+
+.nav-item{
+    width: 50%;
+    height: 30px;
+    line-height: 30px;
+    color: black;
+    margin: 0 15% 10px 10%;
+    font-size: 15px;
+    user-select: none;
+    transform-origin: center left;
+    font-family: "Martel";
+    
+}
+
+.nav-item:hover{
+    cursor: pointer;
+    opacity: 0.4;
+    transition-duration: .1s;
+}
+
+.nav-item:active{
+    transition-duration: .1s;
+    transform: scale(.95);
+}
+
+#nav-button-container{
+    width: 100%;
+    height: 100px;
+}
+
+#current-space-label{
+    width: 80%;
+    height: 80%;
+    line-height: 80px;
+    font-size: 30px;
+    margin: 10px 30px;
+    color: #7394ba;
+    font-family: "Martel";
+    user-select: none;
+    font-weight: bold;
+}
+
+#nav-label{
+    color: black;
+    opacity: .2;
+    font-size: 25px;
+    width: 300px;
+    height: 50px;
+    top: calc(100% - 50px);
+    left: 0;
+    position: absolute;
+    text-indent: 10%;
+}
+
+.nothing-here{
+    text-align: center;
+    color: rgba(0,0,0,.2);
+    font-size: 40px;
+    font-family: "Nunito";
+    background: transparent;
+    
+}
+
+#content-container{
+    width: calc(100% - 300px);
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* box-shadow: 0 0 20px 2px rgba(0,0,0,.2); */
+    background: transparent;
+}
+
+.content-tile{
+    width: 150px;
+    height: 150px;
+    margin: 50px;
+    background-color: gray;
+    border-radius: 15px;
+    box-shadow: 0px 3px 10px 1px rgba(0,0,0,.2);
+    color: white;
+    line-height: 0px;
+}
+
+#add-tile{
+    
+    background-color: #8cdb84;
+    
+    font-size: 60px;
+    text-align: center;
+    line-height: 140px;
+    font-weight: bold;
+    user-select: none;
+    transition-duration: .1s;
+}
+
+#add-tile:hover{
+    transform: scale(1.05);
+    transition-duration: .1s;
+    cursor: pointer;
+}
+
+#add-tile:active{
+    transform: none;
+}
+
+@keyframes fadeIn{
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
