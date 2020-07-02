@@ -1,7 +1,6 @@
 html{
     padding: 0;
     margin: 0;
-    
 }
 
 body{
@@ -32,6 +31,7 @@ p{
     flex-direction: column;
     /* border-right: 1px solid rgba(0,0,0,.2); */
     box-shadow: 5px 0px 20px 3px rgba(0,0,0,.2);
+    /* position: fixed; */
 }
 
 
@@ -54,20 +54,21 @@ p{
     font-size: 15px;
     user-select: none;
     transform-origin: center left;
-    font-family: "Martel";
+    font-family: "Noto Sans JP";
+    font-weight: 700;
     
 }
 
 .nav-item:hover{
     cursor: pointer;
-    opacity: 0.4;
+    opacity: 0.6;
     transition-duration: .1s;
 }
 
-.nav-item:active{
+/* .nav-item:active{
     transition-duration: .1s;
     transform: scale(.95);
-}
+} */
 
 #nav-button-container{
     width: 100%;
@@ -80,22 +81,11 @@ p{
     line-height: 80px;
     font-size: 30px;
     margin: 10px 30px;
-    color: #7394ba;
-    font-family: "Martel";
-    user-select: none;
-    font-weight: bold;
-}
-
-#nav-label{
     color: black;
-    opacity: .2;
-    font-size: 25px;
-    width: 300px;
-    height: 50px;
-    top: calc(100% - 50px);
-    left: 0;
-    position: absolute;
-    text-indent: 10%;
+    opacity: .4;
+    font-family: "Noto Sans JP";
+    user-select: none;
+    font-weight: 300;
 }
 
 .nothing-here{
@@ -110,6 +100,7 @@ p{
 #content-container{
     width: calc(100% - 300px);
     height: 100%;
+    overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
     /* justify-content: center; */
@@ -131,7 +122,8 @@ p{
 
 #add-tile{
     
-    background-color: #8cdb84;
+    /* background-color: #8cdb84; */
+    background: linear-gradient(#b7dbb4, #8cdb84);
     
     font-size: 60px;
     text-align: center;
@@ -142,7 +134,7 @@ p{
 }
 
 #add-tile:hover{
-    transform: scale(1.05);
+    transform: scale(1.025);
     transition-duration: .1s;
     cursor: pointer;
 }
@@ -150,6 +142,18 @@ p{
 #add-tile:active{
     transform: none;
 }
+
+#logout-button{
+    color: #e36c64;
+
+}
+
+/* #logout-button:hover{
+    background-color: #e36c64;
+    color: white;
+    transition: .1s;
+    border-radius: 5px;
+} */
 
 @keyframes fadeIn{
     0%{opacity: 0;}

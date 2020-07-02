@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Martel&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;700&display=swap" rel="stylesheet">
     <script src="script.js"></script>
+    
   </head>
   <body>
     <div id='main-container'>
@@ -16,17 +18,16 @@
           <div id='current-space-label'></div>
         </div>
         <div id='nav-item-container'>
-          <div class='nav-item' onclick="navigate('admin')">Admin</div>
+          <div class='nav-item' onclick="navigate('dash')">Dashboard</div>
           <div class='nav-item' onclick="navigate('settings')">Settings</div>
-          <div class='nav-item' onclick="navigate('profiles')">Profiles</div>
-          <div class='nav-item' onclick="navigate('logout')" style='color: #e36c64;'>Logout</div>
+          <div class='nav-item' id='logout-button' onclick="navigate('logout')">Logout</div>
         </div>
-        <div id='nav-label'>S_Proj v1.0</div>
         
       </div>
       
       <div id='content-container'>
-        <div class='content-tile' id='add-tile'>+</div>
+        <div class='content-tile' id='add-tile' onclick='addTile()'>+</div>
+        <!-- <div class='content-tile'></div> -->
         <!-- <div class='nothing-here'>Nothing here</div> -->
       </div>
     </div>
