@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase.js"></script>
+    
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Martel&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;700&display=swap" rel="stylesheet">
-    <script src="script.js"></script>
-    
   </head>
   <body>
     <div id='main-container'>
@@ -22,9 +24,7 @@
           <div class='nav-item' onclick="navigate('settings')">Settings</div>
           <div class='nav-item' id='logout-button' onclick="navigate('logout')">Logout</div>
         </div>
-        
       </div>
-      
       <div id='content-container'>
         <div class='content-tile' id='add-tile' onclick='addTile()'>+</div>
         <!-- <div class='content-tile'></div> -->
