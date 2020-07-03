@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+
+  <!-- META DATA -->
   <head>
     <meta charset="utf-8">
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
@@ -12,23 +14,52 @@
     <link href="https://fonts.googleapis.com/css2?family=Martel&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
   </head>
+
+  <!-- BODY -->
   <body>
+    <div id='login-container'>
+      <input type = "text"
+             id = "user"
+             placeholder = "Username"/>
+      <input type = "password"
+              id = "pass"
+              placeholder = "Password"/>
+      <button class='create-button' id='login-button' onclick='login()'>LOGIN</button>
+      <div id='create-account-button' onclick='create_account()'>Create account</div>
+      <div id='login-account-status'></div>
+    </div>
     <div id='main-container'>
-      <div id='nav-container'>
-        <div id='nav-button-container'>
-          <div id='current-space-label'></div>
-        </div>
-        <div id='nav-item-container'>
-          <div class='nav-item' onclick="navigate('dash')">Dashboard</div>
-          <div class='nav-item' onclick="navigate('settings')">Settings</div>
-          <div class='nav-item' id='logout-button' onclick="navigate('logout')">Logout</div>
-        </div>
+      <!-- * NAVBAR -->
+      <div id='nav-bar'>
+        <div class='nav-item' onclick="navigate('dash')">Dashboard</div>
+        <div class='nav-item' onclick="navigate('settings')">Settings</div>
+        <div class='nav-item' id='logout-nav' onclick="navigate('logout')" style='opacity: 1; color: #f2623a'>Logout</div>
       </div>
+      
+      <!-- * CONTENT -->
       <div id='content-container'>
-        <div class='content-tile' id='add-tile' onclick='addTile()'>+</div>
-        <!-- <div class='content-tile'></div> -->
-        <!-- <div class='nothing-here'>Nothing here</div> -->
+        <!-- $ DASHBOARD -->
+        <div id='dashboard'>
+          <iframe src='content-app/content.html' id='content-panel' style='display: none;'></iframe>
+          <iframe src='content-app/content2.html' id='content-panel'style='display: none;'></iframe>
+          <iframe src='content-app/content3.html' id='content-panel'style='display: none;'></iframe>
+          <div id='panel-count'>
+            <div onclick='post_db()' class='dot selected'></div>
+            <div class='dot'></div>
+            <div class='dot'></div>
+          </div>
+          <div id='panel-controls'>
+            <div class='panel-control' onclick="switch_panel('l')"><</div>
+            <div class='panel-control' onclick="switch_panel('r')">></div>
+          </div>
+        </div>
+
+        <!-- $ SETTINGS -->
+        <div id='settings'>
+          <div class='nothing-here'>Nothing here</div>
+        </div>        
       </div>
     </div>
   </body>
