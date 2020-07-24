@@ -21,6 +21,6 @@ html{
 }
 
 .disabled{
-    filter: blur(3px);
+    filter: blur(1px);
     pointer-events: none;
 }

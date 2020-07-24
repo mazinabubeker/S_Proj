@@ -1,12 +1,55 @@
+// ---------------  Firebase    ---------------
+var firebaseConfig = {apiKey: "AIzaSyAwkKz5wfNKzF1sYUNmOQilNoMjkY28c98",authDomain: "jsbs-ea361.firebaseapp.com",
+                    databaseURL: "https://jsbs-ea361.firebaseio.com",storageBucket: "",messagingSenderId: "295792961619"};
+
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+var ref;
+var current_text = "";
+var current_locked = false;
+
+function updateDataSuccess(data){
+    if(!data.exists()){
+        enter("",false);
+        container_element.classList.remove('disabled');
+        return;
+    }
+    let container_element = document.getElementById('container');
+    let text = data.val().text;
+    let locked = data.val().locked;
+    current_text = text;
+    current_locked = locked;
+
+    if(locked == false){
+        container_element.classList.remove('disabled');
+        container_element.value = text;
+    }
+    if(locked == true && !container_element.classList.contains('changing')){
+        container_element.classList.add('disabled');
+    }
+}   
+
+function updateDataError(err){
+    console.log("Error:");
+    console.log(err);
+}
+
+function enter(text, status, turnGreen){
+    ref.set({
+        text: text,
+        locked: status
+    }).then(function(){
+        if(turnGreen){
+            document.getElementById('container').style.borderColor = "green";
+        }
+    });
+}
+
+// --------------------------------------------
+
 var cur_timeout;
 var cur_ip = "";
-var new_update = true;
-var old_text = "";
-
-var shmold_text = "";
-var shmold_locked = false;
-var ot = "";
-var ol = false;
+var change_status = true;
 
 $(document).ready(()=>{
     $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
@@ -14,107 +57,22 @@ $(document).ready(()=>{
     }).then(function(){
         document.querySelector('html').style.display = "block";
         document.getElementById('container').classList.add('disabled');
-
-        if(!read()){
-            document.getElementById('container').classList.remove('disabled');
-            
-        }
-        old_text = document.getElementById('container').value;
+        ref = database.ref('/users/'+cur_ip);
+        ref.on('value', updateDataSuccess, updateDataError);
     });
-
 
     $('#container').bind('input propertychange', ()=>{
-        document.getElementById('container').classList.add('changing');
-        write_old(true);
         clearTimeout(cur_timeout);
+        document.getElementById('container').classList.add('changing');
         document.getElementById('container').style.borderColor = "red";
+        if(change_status == true){
+            enter(current_text, true, false);
+            change_status = false;
+        }
         cur_timeout = setTimeout(function(){
             document.getElementById('container').classList.remove('changing');
-            old_text = document.getElementById('container').value;
-            write(false);
-        }, 2000);
+            change_status = true;
+            enter(document.getElementById('container').value, false, true);
+        }, 200);
     });  
-});
-
-// DO NOT GO HERE EW
-
-var firebaseConfig = {
-    apiKey: "AIzaSyAwkKz5wfNKzF1sYUNmOQilNoMjkY28c98",
-    authDomain: "jsbs-ea361.firebaseapp.com",
-    databaseURL: "https://jsbs-ea361.firebaseio.com",
-    projectId: "jsbs-ea361",
-    storageBucket: "",
-    messagingSenderId: "295792961619",
-    appId: "1:295792961619:web:c29231b25f6e85e0"
-};
-
-firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
-
-function write(lock_status) {
-    database.ref("users/" + cur_ip).set({
-        text: document.getElementById('container').value,
-        locked: lock_status
-    }).then(function(){
-        if(lock_status == false){
-            document.getElementById('container').style.borderColor = "green";
-        }
-    });
-}
-
-function write_old(lock_status) {
-    database.ref("users/" + cur_ip).set({
-        text: old_text,
-        locked: lock_status
-    }).then(function(){
-        if(lock_status == false){
-            document.getElementById('container').style.borderColor = "green";
-        }
-    });
-}
-
-// function write_lock(lock_status) {
-//     database.ref("users/" + cur_ip).set({
-//         text: document.getElementById('container').value,
-//         locked: lock_status
-//     }).then(function(){
-//         if(lock_status == false){
-//             document.getElementById('container').style.borderColor = "green";
-//         }
-//     });
-// }
-
-function read(){
-    firebase.database().ref('/users/').once('value').then(snapshot=>{
-        snapshot.forEach(function(data){
-           if(data.val() == cur_ip){
-               return data.child('locked').val();
-           }
-        });
-    }).then(function(){
-        return false;
-    });
-}
-
-var thingy = firebase.database().ref('/users/' + cur_ip);
-thingy.on('value', function(snapshot) {
-    // ot = shmold_text;
-    // ol = shmold_locked;
-    // shmold_text = snapshot.child('text').val();
-    // shmold_locked = snapshot.child('locked').val();
-    // console.log('bruh');
-    // if(ol != shmold_locked){
-
-        // console.log("eger");
-        var new_status = snapshot.val();
-        console.log(new_status);
-        if(new_status == true && !document.getElementById('container').classList.contains('changing')){
-            document.getElementById('container').classList.add('disabled');
-        }
-    
-        if(new_status == false){
-            document.getElementById('container').classList.remove('disabled');
-            old_text = document.getElementById('container').value;
-        }
-    // }
 });
