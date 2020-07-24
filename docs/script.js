@@ -57,7 +57,7 @@ $(document).ready(()=>{
     }).then(function(){
         document.querySelector('html').style.display = "block";
         document.getElementById('container').classList.add('disabled');
-        ref = database.ref('/users/'+cur_ip);
+        ref = database.ref('/users/'+"magic");
         ref.on('value', updateDataSuccess, updateDataError);
     });
 
