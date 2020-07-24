@@ -1,6 +1,8 @@
 html{
     padding: 0;
     margin: 0;
+    display: none;
+    transition-duration: .3s;
 }
 
 #container{
@@ -9,11 +11,16 @@ html{
     left: calc(50% - 200px);
     width:400px;
     height: 300px;
-    border: 2px solid black;
+    border: 2px solid green;
     resize: none;
     text-indent: 1px;
 }
 
 #container:focus{
     outline: none;
+}
+
+.disabled{
+    filter: blur(3px);
+    pointer-events: none;
 }
