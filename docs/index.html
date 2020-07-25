@@ -9,10 +9,16 @@
     <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase.js"></script>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Buenard&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
   </head>
 
   <!-- BODY -->
   <body>
-    <textarea id='container' class='disabled' spellcheck="false" placeholder="Type away..."></textarea>
+    <div id='app-container'>
+      <div id='message-container'></div>
+      <textarea id='container' placeholder="I love you..." spellcheck="false"></textarea>
+      <div id='clear-button' onclick='clearDatabase()'>CLEAR</div>
+    </div>
   </body>
 </html>
