@@ -1,215 +1,164 @@
-let cur_panel = 0;
-let max_panel = 2;
-let logged_in = false;
-let current_user = "";
-let email_temp = "";
-let fullname_temp = "";
-let is_creating = false;
-
-$(document).ready(()=>{
-    document.getElementById('dashboard').getElementsByTagName('iframe')[cur_panel].classList.add('selected-panel');
-}); 
-
-
-// Pretty loading
-$(window).on("load", ()=>{
-    document.querySelector("html").classList.add("html_visible");
-});
-
-function post_db(){
-    console.log(current_user);
-    // write();
-}
-
-function firebase_create_account(){
-    let email = document.getElementById('c-email').value;
-    let password = document.getElementById('c-pass').value;
-    let password_confirm = document.getElementById('c-pass-confirm').value;
-    console.log(email, password);
-    let success = true;
-    if(password == password_confirm){
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-            success = false;
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // Set status message to errorMessage
-            document.getElementById('create-account-status').innerHTML = errorMessage;
-            
-        }).then(()=>{
-            if(success){
-
-                email_temp = document.getElementById('c-user').value
-                fullname_temp = document.getElementById('c-email').value
-                is_creating = true;
-                
-                document.getElementById('create-account-form').style.display = "none";
-                document.getElementById('login-container').style.display = "flex";
-            }else{
-                console.log("Failed to create account");
-            }
-        });
-    }else{
-        // Set status message to 'passwords do not match'
-        document.getElementById('create-account-status').innerHTML = "Passwords do not match";
-    }
-}
-
-function login(){
-    let email = document.getElementById('user').value;
-    let pass = document.getElementById('pass').value;
-    let success = true;
-    firebase.auth().signInWithEmailAndPassword(email, pass).catch(function(error) {
-        success = false;
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // Set status message to errorMessage
-        document.getElementById('login-account-status').innerHTML = errorMessage;
-    }).then(()=>{
-        if(success){
-            // Login success
-        }else{
-            // Login failure
-        }
-    });
-    
-}
-
-function create_account(){
-    document.getElementById('login-container').style.display = "none";
-    let form = `<div id='create-account-form'>
-                    <div id='back-to-login' onclick='back_to_login()'><</div>
-                    <input type = "text"
-                    id = "c-user"
-                    class='create-account-form-input' placeholder='Full name'/>
-                    <input type = "text"
-                    id = "c-email"
-                    class='create-account-form-input' placeholder='Email'/>
-                    <input type = "password"
-                    id = "c-pass"
-                    class='create-account-form-input' placeholder='Password'/>
-                    <input type = "password"
-                    id = "c-pass-confirm"
-                    class='create-account-form-input' placeholder='Confirm password'/>
-                    <button class='create-button' onclick='firebase_create_account()'>CREATE</button>
-                    <div id='create-account-status'></div>
-                </div>`;
-    document.getElementById('login-container').insertAdjacentHTML('afterend', form);
-                    
-                     
-}
-
-function back_to_login(){
-    document.getElementById('login-container').style.display = "flex";
-    document.getElementById('create-account-form').style.display = "none";
-}
-
-function navigate(key){
-    if(key == 'dash'){
-        document.getElementById('dashboard').style.display = "flex";
-        document.getElementById('settings').style.display = "none";
-    }else if(key == 'settings'){
-        document.getElementById('dashboard').style.display = "none";
-        document.getElementById('settings').style.display = "flex";
-    }else if(key == 'logout'){
-        firebase.auth().signOut().then(function() {
-            // Sign-out successful.
-          }).catch(function(error) {
-            // An error happened.
-          });
-    }
-}
-
-function switch_panel(p){
-    if(p == 'l'){
-        if(cur_panel > 0){
-            cur_panel -= 1;
-        }
-        
-    }else if(p == 'r'){
-        if(cur_panel < max_panel){
-            cur_panel += 1;
-        }
-    }
-    document.getElementById('panel-count').getElementsByTagName('div')[cur_panel].classList.add('selected');
-    for(var i = 0; i < max_panel+1; i++){
-        if(i != cur_panel){
-            document.getElementById('panel-count').getElementsByTagName('div')[i].classList.remove('selected');
-        }
-    }
-    document.getElementById('content-container').getElementsByTagName('iframe')[cur_panel].classList.add('selected-panel');
-    for(var i = 0; i < max_panel+1; i++){
-        if(i != cur_panel){
-            document.getElementById('content-container').getElementsByTagName('iframe')[i].classList.remove('selected-panel');
-        }
-    }
-
-}
-
-
-
-// Firebase shit
-// Clear database: database.ref('main/').set({});
-
-var firebaseConfig = {
-    apiKey: "AIzaSyAwkKz5wfNKzF1sYUNmOQilNoMjkY28c98",
-    authDomain: "jsbs-ea361.firebaseapp.com",
-    databaseURL: "https://jsbs-ea361.firebaseio.com",
-    projectId: "jsbs-ea361",
-    storageBucket: "",
-    messagingSenderId: "295792961619",
-    appId: "1:295792961619:web:c29231b25f6e85e0"
-};
+// ---------------  Firebase    ---------------
+var firebaseConfig = {apiKey: "AIzaSyAwkKz5wfNKzF1sYUNmOQilNoMjkY28c98",authDomain: "jsbs-ea361.firebaseapp.com",
+                    databaseURL: "https://jsbs-ea361.firebaseio.com",storageBucket: "",messagingSenderId: "295792961619"};
 
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
+var sendRef;
+var receiveRef;
 
-function write() {
-    database.ref("users/" + current_user).set({
-        fullname: document.getElementById('c-user').value,
-        email: document.getElementById('c-email').value
-    }).then(read);
 
-    // database.ref("users/" + current_user).set({
-    //     ok: "hi",
-    //     ok2: "hello"
-    // });
+function updateDataError(err){
+    console.log(err);
 }
 
-function read(){
-    firebase.database().ref('/users/').once('value').then(snapshot=>{
-        snapshot.forEach(function(data){
-           if(data.val() == current_user){
-               document.getElementsByClassName('nothing-here')[0].innerHTML = data.child('fullname').val();
-           }
-        });
+function enter(text, sender){
+    sendRef.set({
+        text: text,
+        sender: sender
     });
 }
 
-function quickRead(){
-    var final = 0;
-    firebase.database().ref('/main/').once('value').then(snapshot=>{
-        snapshot.forEach(function(data){
-            return data.child('value').val(); 
-        });
+function enterUser(username){
+    sendRef.set({
+        username: username
+    }).then(function(){
+        cur_username = username;
+        document.getElementById('logged-in-as').innerHTML = "Logged in as: <b>" + cur_username + "</b>";
+        document.getElementById('app-container').classList.remove('disabled');
+        document.getElementById('username-container').classList.add('hidden');
     });
+}
+
+function enterUsername(newDat, isNew, oldDat){
+    if(isNew){
+        sendRef.set({
+            dat: newDat
+        });
+    }else{
+        sendRef.set({
+            dat: oldDat + " " + newDat
+        });
+    }
     
 }
 
-firebase.auth().onAuthStateChanged((user) => {
-    if(user){
-        logged_in = true;
-        current_user = user.uid;
-        if(is_creating){
-            write();
-        }
-        document.getElementById('main-container').style.display = 'flex';
-        document.getElementById('login-container').style.display = 'none';
-        // read();
-    }else{
-        logged_in = false;
-        current_user = "";
-        document.getElementById('main-container').style.display = 'none';
-        document.getElementById('login-container').style.display = 'flex';
+
+function clearDatabase(){
+    sendRef = database.ref('/messages/');
+    sendRef.set({
+
+    }).then(function(){
+        location.reload();
+    });
+}
+
+function logout(){
+    receiveRef = database.ref('/users/allusers');
+    receiveRef.once('value', data=>{
+        let usernames = data.val().dat.split(' ');
+        console.log(usernames);
+        let index_of_cur_username = usernames.indexOf(cur_username);
+        console.log(cur_username)
+        console.log(index_of_cur_username);
+        usernames.splice(index_of_cur_username,1);
+        console.log(usernames);
+        let new_usernames = '';
+        usernames.forEach(u=>{
+            new_usernames += u + ' ';
+        });
+        sendRef = database.ref('/users/allusers');
+        enterUsername(new_usernames, true, "");
+    });
+
+
+    sendRef = database.ref('/users/' + cur_ip);
+    sendRef.set({
+
+    }).then(function(){
+        location.reload();
+    });
+}
+// --------------------------------------------
+
+var counter = 0;
+// var d = new Date;
+function onUpdate(data, cb){
+    document.getElementById('message-container').innerHTML = "";
+    if(data.exists()){
+        let keys = Object.keys(data.val());
+        keys.forEach(key=>{
+            let elem = `<div class='message'><b>` + data.val()[key].sender + "</b>: " + data.val()[key].text + `</div>`;
+            
+            document.getElementById('message-container').insertAdjacentHTML('beforeend', elem);
+        });
     }
+    cb();
+}
+var cur_ip = "";
+var cur_username = "";
+$(document).ready(()=>{
+    $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
+        cur_ip = data.split('\n')[2].substring(3);
+    }).then(function(){
+        console.log("IP Retrieved: " + cur_ip);
+        document.querySelector('html').style.display = "block";
+        receiveRef = database.ref('/users/' + cur_ip);
+        receiveRef.once('value', data=>{
+            if(!data.exists()){                
+                document.getElementById('username-container').classList.remove('hidden');
+                document.getElementById('username-input').addEventListener('keypress', e=>{
+                    if(window.event.keyCode==13){e.preventDefault();}else{return;}
+                    if(document.getElementById('username-input').value==''){alert('Enter a username.'); return;}
+                    if(document.getElementById('username-input').value.includes(' ')){alert('No spaces!'); return;}
+
+                    receiveRef = database.ref('/users/allusers');
+                    receiveRef.once('value', data=>{
+                        sendRef = database.ref('/users/allusers');
+                        if(!data.exists()){
+                            enterUsername(document.getElementById('username-input').value, true, "");
+                        }else{
+                            let taken_usernames = data.val().dat.split(' ');
+                            if(!taken_usernames.includes(document.getElementById('username-input').value)){
+                                enterUsername(document.getElementById('username-input').value, false, data.val().dat);
+                            }else{
+                                alert("Username is taken.");
+                                return;
+                            }
+                        }
+                        sendRef = database.ref('/users/' + cur_ip);
+                        enterUser(document.getElementById('username-input').value);
+                    });
+                });
+            }else{
+                document.getElementById('app-container').classList.remove('disabled');
+                cur_username = data.val().username;
+                document.getElementById('logged-in-as').innerHTML = "Logged in as: <b>" + cur_username + "</b>";
+            }
+        });
+
+
+        document.getElementById('container').addEventListener('keypress', e=>{
+            if(window.event.keyCode==13){e.preventDefault();}else{return;}
+            if(document.getElementById('container').value==''){return;}
+            let link = '/messages/'+Date.now();
+            sendRef = database.ref(link);
+            let cur_val = document.getElementById('container').value;
+            enter(cur_val, cur_username);
+            let container_element = document.getElementById('container');
+            container_element.value = "";
+        });
+
+
+
+        receiveRef = database.ref('/messages/');
+        receiveRef.on('value', data=>{
+            let ce = document.getElementById('message-container');
+            onUpdate(data, function(){
+                (ce.scrollTop = ce.scrollHeight);
+            }, updateDataError);
+        });
+    });
 });
+
+
