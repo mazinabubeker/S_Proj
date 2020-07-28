@@ -1,33 +1,30 @@
+var socket;
+var ball_element;
 
 $(document).ready(function(){    
-
-    // Send something to all of the users instantly.
-    // Internet is an issue so theres lag
-    // Queue an action, so that, once all the clients receieved the request, a timer of 10 MS is waited until action is executed
-
-
+    socket = io.connect('http://localhost:5000');
+    socket.on('mousething', updatePicture);
+    ball_element = document.getElementById('ball');
 });
 
+function updatePicture(e){
+    ball_element.style.top = (Math.floor(window.innerHeight*e.y) - 10).toString() + "px";
+    ball_element.style.left = (Math.floor(window.innerWidth*e.x)-10).toString() + "px";
+}
 
-function unflash(){
-    document.querySelector('body').style.backgroundColor = '#fff';
+function mouseUpdate(e){
+    var data = {
+        x: e.clientX/window.innerWidth,
+        y: e.clientY/window.innerHeight
+    };
+    socket.emit('mouse', data);
 }
 
 
-function flash(){
-    document.querySelector('body').style.backgroundColor = '#54e365';
-    setTimeout(unflash, 100);
-    setTimeout(flash, 3000);
-}
+
 
 function activateThing(){
-    document.getElementById('btn').innerHTML = "";
-    queryGET('/query_get', res=>{
-        setTimeout(flash, parseInt(res)-Date.now());
-    }, err=>{
-        console.log("Error:");
-        console.log(err);
-    });
+    document.onmousemove = mouseUpdate;
 }
 
 

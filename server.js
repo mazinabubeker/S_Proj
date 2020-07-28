@@ -14,15 +14,21 @@ app.get('/query_get', (req, res) => {
   res.send(nextFlashTime.toString());
   res.end();
 });
-var nextFlashTime = Date.now() + 3000;
-function beginFlashing(){
-  nextFlashTime += 3000;
-  setTimeout(beginFlashing, 3000);
-}
-setTimeout(beginFlashing, 3000);
+
+
 
 var io = socket(server);
 io.sockets.on('connection', newConnection)
+
+function newConnection(socket){
+  console.log("Connected: " + socket.id);
+  socket.on('mouse', mouseUpdate);
+  function mouseUpdate(data){
+    console.log(data);
+    socket.broadcast.emit('mousething', data);
+  }
+}
+
 
 
 

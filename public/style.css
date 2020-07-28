@@ -28,3 +28,13 @@ html, body{
 #btn:active{
     transform: scale(.8);
 }
+
+#ball{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+}
