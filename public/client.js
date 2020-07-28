@@ -2,7 +2,7 @@ var socket;
 var ball_element;
 
 $(document).ready(function(){    
-    socket = io.connect('https://maz-app2.herokuapp.com:5000');
+    socket = io.connect('http://localhost:3000');
     socket.on('mouse', updatePicture);
     ball_element = document.getElementById('ball');
 });

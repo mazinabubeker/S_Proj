@@ -1,7 +1,7 @@
 
 const express = require('express');
-const socket = require('socket.io');
-const PORT = process.env.PORT || 5000;
+const socket = require('socket.io')(3000);
+const PORT = 3000;
 const app = express();
 const server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 app.use(express.static('public'));
@@ -14,7 +14,6 @@ app.get('/query_get', (req, res) => {
   res.send(nextFlashTime.toString());
   res.end();
 });
-
 
 
 var io = socket(server);
