@@ -8,7 +8,9 @@ $(document).ready(function(){
 });
 
 function updatePicture(e){
-    ball_element.style.top = (Math.floor(window.innerHeight*e.y) - 10).toString() + "px";
+    document.getElementById('btn').innerHTML = e.x.toString() + ", " + e.y.toString();
+    console.log("hey");
+    ball_element.style.top = (Math.floor(window.innerHeight*e.y)-10).toString() + "px";
     ball_element.style.left = (Math.floor(window.innerWidth*e.x)-10).toString() + "px";
 }
 
