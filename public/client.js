@@ -21,6 +21,7 @@ function flash(){
 }
 
 function activateThing(){
+    document.getElementById('btn').innerHTML = "";
     queryGET('/query_get', res=>{
         setTimeout(flash, parseInt(res)-Date.now());
     }, err=>{

@@ -17,7 +17,7 @@ html, body{
     color: black;
     position: absolute;
     user-select: none;
-    transition-duration: .3s;
+    /* transition-duration: .3s; */
     border: 2px solid black;
 }
 
