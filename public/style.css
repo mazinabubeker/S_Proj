@@ -2,98 +2,29 @@ html, body{
     height: 100%;
     margin: 0;
     padding: 0;
-}
-
-#title{
-    animation: titleTween 2s ease-in-out forwards;
-    height: 50px;
-    opacity: 0;
-    font-size: 35px;
-    font-family: "Futura";
-    font-style: italic;
-    line-height: 50px;
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    top: calc(50% - 25px);
-    /* font-weight: bold; */
+    font-family: "Roboto";
 }
 
 
-#button-container{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-@keyframes titleTween{
-    25%{top: calc(50% - 25px);
-    opacity: 1;}
-    100%{top: calc(33% - 25px);
-        opacity: 1;}
-}
-
-
-
-
-p{
-    margin: 0;
-    padding: 4px;
-}
-
-@font-face {
-    font-family: "Futura";
-    src: url("Harlow_Solid_Italic.ttf");
-}
-
-.button{
-    user-select: none;
-    opacity: 0;
-    animation: fadeIn 1s ease-in-out 1s forwards;
-    transition-duration: 200ms;
-    transition-timing-function: ease-in-out;
-    text-align: center;
-    justify-content: center;
-    font-family: "Futura";
+#btn{
     width: 200px;
     height: 50px;
+    top: 200px;
+    left: calc(50% - 100px);
     line-height: 50px;
-    margin-bottom: 15px;
-    border: black;
-}
-@keyframes fadeIn{
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-}
-.button:hover{
-    cursor: pointer;
+    text-align: center;
+    margin: 0 auto;
+    background-color: cadetblue;
     color: white;
-    background-color: black;
+    position: absolute;
+    user-select: none;
+    transition-duration: .3s;
 }
 
-#page-landing{
-    width: 100%;
-    height: 100%;
+#btn:hover{
+    cursor: pointer;
 }
 
-#page-lobby{
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    display: none;
-}
-
-#lobby-list{
-    width: 180px;
-    height: 350px;
-    border: black 2px solid;
+#btn:active{
+    transform: scale(.8);
 }

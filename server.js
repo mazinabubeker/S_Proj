@@ -10,9 +10,17 @@ app.post('/query_post', (req, res) => {
   res.end();
 });  
 app.get('/query_get', (req, res) => {
-  res.send("Gotten");
+  res.send(nextFlashTime);
   res.end();
 });
+var nextFlashTime = Date.now();
+function beginFlashing(){
+  nextFlashTime += 1000;
+  setTimeout(beginFlashing, 1000);
+}
+beginFlashing();
+
+
 
 
 // app.get(url, onQuery(input, output));
