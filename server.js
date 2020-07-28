@@ -1,8 +1,9 @@
 
 const express = require('express');
+const socket = require('socket.io');
 const PORT = process.env.PORT || 5000;
 const app = express();
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+const server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 app.use(express.static('public'));
 app.use(express.json({limit: '1mb'}));
 app.post('/query_post', (req, res) => {
@@ -20,6 +21,8 @@ function beginFlashing(){
 }
 setTimeout(beginFlashing, 3000);
 
+var io = socket(server);
+io.sockets.on('connection', newConnection)
 
 
 
