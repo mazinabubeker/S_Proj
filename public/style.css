@@ -3,7 +3,35 @@ html, body{
     padding: 0;
 }
 
+#title{
+    animation: titleTween 2s ease-in-out forwards;
+    height: 50px;
+    opacity: 0;
+    
+    font-family: "Futura";
+    font-style: italic;
+    line-height: 50px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: calc(50% - 25px);
+    /* font-weight: bold; */
+}
+
+@keyframes titleTween{
+    25%{top: calc(50% - 25px);
+    opacity: 1;}
+    100%{top: calc(33% - 25px);
+        opacity: 1;}
+}
+
+
 p{
     margin: 0;
     padding: 4px;
+}
+
+@font-face {
+    font-family: "Futura";
+    src: url("Harlow_Solid_Italic.ttf");
 }

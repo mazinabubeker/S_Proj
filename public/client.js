@@ -1,24 +1,33 @@
 
-$(document).ready(function(){
-    document.getElementsByTagName('p')[0].style.color = "red";
-    
-    queryPOST('/query_post', {name: "Mazin Abubeker", age: 22}, res=>{
-        console.log("POST successful:");
-        console.log(res);
-    }, err=>{
-        console.log("Error:");
-        console.log(err);
-    });
+$(document).ready(function(){    
 
-    queryGET('/query_get', res=>{
-        console.log("GET successful:");
-        console.log(res);
-    }, err=>{
-        console.log("Error:");
-        console.log(err);
-    });
+
 
 });
+
+
+// REST API
+//
+// SAMLE GET REQUEST:
+/*
+queryGET('/query_get', res=>{
+    console.log("GET successful:");
+    console.log(res);
+}, err=>{
+    console.log("Error:");
+    console.log(err);
+});
+*/
+// SAMPLE POST REQUEST:
+/*
+queryPOST('/query_post', {name: "Mazin Abubeker", age: 22}, res=>{
+    console.log("POST successful:");
+    console.log(res);
+}, err=>{
+    console.log("Error:");
+    console.log(err);
+});
+*/
 
 function queryPOST(url, query, successCallback, errorCallback){
     const options = {method: 'POST',
