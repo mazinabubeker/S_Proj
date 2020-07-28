@@ -14,11 +14,11 @@ html, body{
     line-height: 50px;
     text-align: center;
     margin: 0 auto;
-    background-color: cadetblue;
-    color: white;
+    color: black;
     position: absolute;
     user-select: none;
     transition-duration: .3s;
+    border: 2px solid black;
 }
 
 #btn:hover{

@@ -10,12 +10,12 @@ $(document).ready(function(){
 
 
 function unflash(){
-    document.querySelector('body').backgroundColor = '#fff';
+    document.querySelector('body').style.backgroundColor = '#fff';
 }
 
 
 function flash(){
-    document.querySelector('body').backgroundColor = '#54e365';
+    document.querySelector('body').style.backgroundColor = '#54e365';
     setTimeout(unflash, 100);
     setTimeout(flash, 1000);
 }

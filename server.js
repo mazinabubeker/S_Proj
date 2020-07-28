@@ -10,7 +10,7 @@ app.post('/query_post', (req, res) => {
   res.end();
 });  
 app.get('/query_get', (req, res) => {
-  res.send(nextFlashTime);
+  res.send(nextFlashTime.toString());
   res.end();
 });
 var nextFlashTime = Date.now();
