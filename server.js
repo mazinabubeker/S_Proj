@@ -1,9 +1,9 @@
 
 var express = require('express');
-var socket = require('socket.io');
+var soccc = require('socket.io');
 // var PORT = 3000;
 var app = express();
-var server = app.listen(3000);
+var server = app.listen(process.env.PORT || 3000);
 // const server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 app.use(express.static('public'));
 // app.use(express.json({limit: '1mb'}));
@@ -17,7 +17,7 @@ app.use(express.static('public'));
 // });
 
 
-var io = socket(server);
+var io = soccc(server);
 io.sockets.on('connection', newConnection)
 
 function newConnection(socket){
