@@ -13,12 +13,12 @@ app.get('/query_get', (req, res) => {
   res.send(nextFlashTime.toString());
   res.end();
 });
-var nextFlashTime = Date.now();
+var nextFlashTime = Date.now() + 3000;
 function beginFlashing(){
-  nextFlashTime += 1000;
-  setTimeout(beginFlashing, 1000);
+  nextFlashTime += 3000;
+  setTimeout(beginFlashing, 3000);
 }
-beginFlashing();
+setTimeout(beginFlashing, 3000);
 
 
 

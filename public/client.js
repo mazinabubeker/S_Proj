@@ -17,12 +17,12 @@ function unflash(){
 function flash(){
     document.querySelector('body').style.backgroundColor = '#54e365';
     setTimeout(unflash, 100);
-    setTimeout(flash, 1000);
+    setTimeout(flash, 3000);
 }
 
 function activateThing(){
     queryGET('/query_get', res=>{
-        setTimeout(flash, parseInt(res)-Date.now())
+        setTimeout(flash, parseInt(res)-Date.now());
     }, err=>{
         console.log("Error:");
         console.log(err);
