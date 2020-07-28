@@ -2,14 +2,13 @@ var socket;
 var ball_element;
 
 $(document).ready(function(){    
-    socket = io.connect('https://maz-app2.herokuapp.com:5000');
+    socket = io.connect('http://localhost:5000');
     socket.on('mousething', updatePicture);
     ball_element = document.getElementById('ball');
 });
 
 function updatePicture(e){
     document.getElementById('btn').innerHTML = e.x.toString() + ", " + e.y.toString();
-    console.log("hey");
     ball_element.style.top = (Math.floor(window.innerHeight*e.y)-10).toString() + "px";
     ball_element.style.left = (Math.floor(window.innerWidth*e.x)-10).toString() + "px";
 }
