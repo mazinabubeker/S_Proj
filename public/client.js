@@ -6,6 +6,12 @@ $(document).ready(function(){
 });
 
 
+function createLobby(){
+    document.getElementById("page-landing").style.display="none";
+    document.getElementById("page-lobby").style.display="block";
+
+}
+
 // REST API
 //
 // SAMLE GET REQUEST:
