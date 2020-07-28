@@ -2,7 +2,7 @@ var socket;
 var ball_element;
 
 $(document).ready(function(){    
-    socket = io.connect('http://localhost:5000');
+    socket = io.connect('https://localhost:5000');
     socket.on('mouse', updatePicture);
     ball_element = document.getElementById('ball');
 });
