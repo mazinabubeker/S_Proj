@@ -3,12 +3,11 @@ var ball_element;
 
 $(document).ready(function(){    
     socket = io.connect('http://localhost:5000');
-    socket.on('mousething', updatePicture);
+    socket.on('mouse', updatePicture);
     ball_element = document.getElementById('ball');
 });
 
 function updatePicture(e){
-    document.getElementById('btn').innerHTML = e.x.toString() + ", " + e.y.toString();
     ball_element.style.top = (Math.floor(window.innerHeight*e.y)-10).toString() + "px";
     ball_element.style.left = (Math.floor(window.innerWidth*e.x)-10).toString() + "px";
 }

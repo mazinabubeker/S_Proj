@@ -25,7 +25,7 @@ function newConnection(socket){
   socket.on('mouse', mouseUpdate);
   function mouseUpdate(data){
     console.log(data);
-    socket.broadcast.emit('mousething', data);
+    socket.broadcast.emit('mouse', data);
   }
 }
 
