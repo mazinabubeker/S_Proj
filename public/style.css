@@ -78,6 +78,22 @@ p{
     background-color: black;
 }
 
+#page-landing{
+    width: 100%;
+    height: 100%;
+}
+
 #page-lobby{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     display: none;
+}
+
+#lobby-list{
+    width: 180px;
+    height: 350px;
+    border: black 2px solid;
 }

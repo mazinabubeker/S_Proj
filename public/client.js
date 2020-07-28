@@ -8,15 +8,15 @@ $(document).ready(function(){
 
 function createLobby(){
     document.getElementById("page-landing").style.display="none";
-    document.getElementById("page-lobby").style.display="block";
+    document.getElementById("page-lobby").style.display="flex";
 
+    var lobby_id = Math.floor(Math.random()*10000);
+    document.getElementById("lobby-label").innerHTML = lobby_id;
+
+    
+    //document.getElementById("lobby-list").insertAdjacentHTML('beforeend', )
+    
 }
-
-// REST API
-//
-// SAMLE GET REQUEST:
-/*
-queryGET('/query_get', res=>{
     console.log("GET successful:");
     console.log(res);
 }, err=>{
